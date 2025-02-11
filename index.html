@@ -114,15 +114,15 @@
                 exponentResultElement.innerHTML = "指数表記: 計算不能";
             } else {
                 let newExponent = Math.floor(logResult);
-                let coefficient = floatResult / Math.pow(10, newExponent);
+                let coefficient = Math.pow(10, logResult - newExponent);
 
                 // もし coefficient が 1 未満なら、指数を調整
-                if (Math.abs(coefficient) < 1) {
+                if (coefficient < 1) {
                     coefficient *= 10;
                     newExponent -= 1;
                 }
 
-                // NaN になるのを防ぐ
+                // NaN を防ぐ
                 if (!Number.isFinite(coefficient)) {
                     exponentResultElement.innerHTML = "指数表記: 計算不能";
                 } else {
@@ -133,12 +133,17 @@
                 }
             }
 
+            // `floatResult` は通常の詳細表示に使用
             if (Number.isInteger(base) && Number.isInteger(exponent)) {
                 let bigIntResult = BigInt(Math.round(base)) ** BigInt(exponent);
                 resultElement.innerHTML = `詳細:\n${bigIntResult.toString().padStart(20, ' ')}`;
             } else {
-                resultElement.innerHTML = `詳細:\n${floatResult.toFixed(20)}`;
-            }
+                // floatResult が Infinity になった場合の処理
+                if (!Number.isFinite(floatResult)) {
+                    resultElement.innerHTML = "⚠ 計算結果が大きすぎます";
+                } else {
+                    resultElement.innerHTML = `詳細:\n${floatResult.toExponential(20)}`;
+                }
         } catch (error) {
             resultElement.innerHTML = "⚠ 計算エラー: 結果が大きすぎます";
             exponentResultElement.innerHTML = "";
