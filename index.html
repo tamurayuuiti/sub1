@@ -113,23 +113,30 @@
             if (!Number.isFinite(logResult)) {
                 exponentResultElement.innerHTML = "指数表記: 計算不能";
             } else {
-                let newExponent = Math.floor(logResult);
+                let newExponent;
+                let coefficient;
 
-                // Infinity または 0 の場合をチェック
-                if (!Number.isFinite(floatResult) || floatResult === 0) {
-                    coefficient = 1.0;  // 0 や Infinity の場合はデフォルト値をセット
+                // Infinity の場合は指数を直接計算
+                if (!Number.isFinite(floatResult)) {
+                    newExponent = Math.floor(exponent * Math.log10(Math.abs(base)));
+                    coefficient = 1.0; // `Infinity` の場合、1.0 × 10^n の形に統一
+                } else if (floatResult === 0) {
+                    newExponent = 0;
+                    coefficient = 0; // `0 × 10^0` の形に統一
                 } else {
+                    newExponent = Math.floor(logResult);
                     coefficient = floatResult / Math.pow(10, newExponent);
-                }
 
-                // もし coefficient が 1 未満（例: 0.5 × 10^n など）なら、指数を調整
-                while (Math.abs(coefficient) < 1 && newExponent > -308) { 
-                    coefficient *= 10;
-                    newExponent -= 1;
+                    // もし coefficient が 1 未満（例: 0.5 × 10^n など）なら、指数を調整
+                    if (Math.abs(coefficient) < 1) {
+                        coefficient *= 10;
+                        newExponent -= 1;
+                    }
                 }
 
                 // 係数の精度を調整
                 coefficient = parseFloat(coefficient.toPrecision(3));
+
 
 
                 let sign = floatResult < 0 ? "-" : "";
