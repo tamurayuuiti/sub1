@@ -108,14 +108,7 @@
             }
 
             let floatResult = Math.pow(base, exponent);
-            let logResult;
-
-            // `floatResult` が `Infinity` の場合は `logResult` を手動計算
-            if (!Number.isFinite(floatResult)) {
-                logResult = exponent * Math.log10(Math.abs(base));
-            } else {
-                logResult = Math.log10(Math.abs(floatResult));
-            }
+            let logResult = Math.log10(Math.abs(base)) * exponent;
 
             if (!Number.isFinite(logResult)) {
                 exponentResultElement.innerHTML = "指数表記: 計算不能";
@@ -123,25 +116,28 @@
                 let newExponent = Math.floor(logResult);
                 let coefficient = floatResult / Math.pow(10, newExponent);
 
-                // もし coefficient が 1 未満（例: 0.5 × 10^n など）なら、指数を調整
+                // もし coefficient が 1 未満なら、指数を調整
                 if (Math.abs(coefficient) < 1) {
                     coefficient *= 10;
                     newExponent -= 1;
                 }
 
-                // 係数の精度を調整
-                coefficient = parseFloat(coefficient.toPrecision(3));
-
-                let sign = floatResult < 0 ? "-" : "";
-                let exponentForm = `${sign}${coefficient} × 10^${newExponent}`;
-                exponentResultElement.innerHTML = `計算結果: ${exponentForm}`;
+                // NaN になるのを防ぐ
+                if (!Number.isFinite(coefficient)) {
+                    exponentResultElement.innerHTML = "指数表記: 計算不能";
+                } else {
+                    coefficient = parseFloat(coefficient.toPrecision(3));
+                    let sign = floatResult < 0 ? "-" : "";
+                    let exponentForm = `${sign}${coefficient} × 10^${newExponent}`;
+                    exponentResultElement.innerHTML = `計算結果: ${exponentForm}`;
+                }
             }
 
             if (Number.isInteger(base) && Number.isInteger(exponent)) {
                 let bigIntResult = BigInt(Math.round(base)) ** BigInt(exponent);
-                resultElement.innerHTML = `詳細:\n${bigIntResult.toString()}`;
+                resultElement.innerHTML = `詳細:\n${bigIntResult.toString().padStart(20, ' ')}`;
             } else {
-                resultElement.innerHTML = `詳細:\n${floatResult.toExponential(20)}`;
+                resultElement.innerHTML = `詳細:\n${floatResult.toFixed(20)}`;
             }
         } catch (error) {
             resultElement.innerHTML = "⚠ 計算エラー: 結果が大きすぎます";
