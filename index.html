@@ -108,27 +108,26 @@
             }
 
             let floatResult = Math.pow(base, exponent);
-            let logResult = Math.log10(Math.abs(base)) * exponent; // 修正: `floatResult` ではなく `base` を使用
+            let logResult = Math.log10(Math.abs(base)) * exponent; // 過去の計算方法に戻す
 
             if (!Number.isFinite(logResult)) {
                 exponentResultElement.innerHTML = "指数表記: 計算不能";
-            } else {
-                let newExponent = Math.floor(logResult);
-                let coefficient = Math.pow(10, logResult % 1).toFixed(2);
-
-                // もし coefficient が 1 未満（例: 0.5 × 10^n など）なら、指数を調整
-                if (Math.abs(coefficient) < 1) {
-                    coefficient *= 10;
-                    newExponent -= 1;
-                }
-
-                // 係数の精度を調整
-                coefficient = parseFloat(coefficient.toPrecision(3));
-
-                let sign = floatResult < 0 ? "-" : "";
-                let exponentForm = `${coefficient} × 10^${Math.floor(logResult)}`;
-                exponentResultElement.innerHTML = `計算結果: ${exponentForm}`;
+                return;
             }
+
+            let newExponent = Math.floor(logResult);
+
+            // `newExponent` が `NaN` の場合の処理
+            if (!Number.isFinite(newExponent)) {
+                exponentResultElement.innerHTML = "指数表記: 計算不能";
+                return;
+            }
+
+            let coefficient = Math.pow(10, logResult % 1).toPrecision(3); // 過去の方法に戻す
+
+            let sign = floatResult < 0 ? "-" : "";
+            let exponentForm = `${sign}${coefficient} × 10^${newExponent}`;
+            exponentResultElement.innerHTML = `計算結果: ${exponentForm}`;
 
             if (Number.isInteger(base) && Number.isInteger(exponent)) {
                 let bigIntResult = BigInt(Math.round(base)) ** BigInt(exponent);
@@ -150,5 +149,6 @@
         }
     });
 </script>
+
 </body>
 </html>
