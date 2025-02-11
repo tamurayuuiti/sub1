@@ -116,6 +116,7 @@
                 let newExponent = Math.floor(logResult);
                 let coefficient = floatResult / Math.pow(10, newExponent);
 
+                // もし coefficient が 0 になってしまう場合、指数を調整
                 if (coefficient < 1) {
                     coefficient *= 10;
                     newExponent -= 1;
