@@ -82,54 +82,69 @@
     </div>
 
     <script>
-        function calculatePower() {
-            let base = parseFloat(document.getElementById("base").value);
-            let exponent = parseFloat(document.getElementById("exponent").value);
-            let resultElement = document.getElementById("result");
-            let exponentResultElement = document.getElementById("exponentResult");
+    function calculatePower() {
+        let base = parseFloat(document.getElementById("base").value);
+        let exponent = parseFloat(document.getElementById("exponent").value);
+        let resultElement = document.getElementById("result");
+        let exponentResultElement = document.getElementById("exponentResult");
 
-            if (isNaN(base) || isNaN(exponent)) {
-                resultElement.innerHTML = "⚠ 数字を入力してください";
-                exponentResultElement.innerHTML = "";
-                return;
-            }
-
-            if (base < -1e308 || base > 1e308 || exponent < 0 || exponent > 100000) {
-                resultElement.innerHTML = "⚠ 許容範囲を超えています (底は-1e308以上, 指数は0以上)";
-                exponentResultElement.innerHTML = "";
-                return;
-            }
-
-            try {
-                if (base < 0 && !Number.isInteger(exponent)) {
-                    resultElement.innerHTML = "⚠ 負の底に対して小数の指数は計算できません";
-                    exponentResultElement.innerHTML = "";
-                    return;
-                }
-
-                let floatResult = Math.pow(base, exponent);
-                let logResult = Math.log10(Math.abs(base)) * exponent;
-
-                if (!Number.isFinite(logResult)) {
-                    exponentResultElement.innerHTML = "指数表記: 計算不能";
-                } else {
-                    let coefficient = Math.pow(10, logResult % 1).toFixed(3);
-                    let sign = floatResult < 0 ? "-" : "";
-                    let exponentForm = `${sign}${coefficient} × 10^${Math.floor(logResult)}`;
-                    exponentResultElement.innerHTML = `計算結果: ${exponentForm}`;
-                }
-
-                if (Number.isInteger(base) && Number.isInteger(exponent)) {
-                    let bigIntResult = BigInt(Math.round(base)) ** BigInt(exponent);
-                    resultElement.innerHTML = `詳細:\n${bigIntResult.toString().padStart(20, ' ')}`;
-                } else {
-                    resultElement.innerHTML = `詳細:\n${floatResult.toFixed(20)}`;
-                }
-            } catch (error) {
-                resultElement.innerHTML = "⚠ 計算エラー: 結果が大きすぎます";
-                exponentResultElement.innerHTML = "";
-            }
+        if (isNaN(base) || isNaN(exponent)) {
+            resultElement.innerHTML = "⚠ 数字を入力してください";
+            exponentResultElement.innerHTML = "";
+            return;
         }
-    </script>
+
+        if (base < -1e308 || base > 1e308 || exponent < 0 || exponent > 100000) {
+            resultElement.innerHTML = "⚠ 許容範囲を超えています (底は-1e308以上, 指数は0以上)";
+            exponentResultElement.innerHTML = "";
+            return;
+        }
+
+        try {
+            if (base < 0 && !Number.isInteger(exponent)) {
+                resultElement.innerHTML = "⚠ 負の底に対して小数の指数は計算できません";
+                exponentResultElement.innerHTML = "";
+                return;
+            }
+
+            let floatResult = Math.pow(base, exponent);
+            let logResult = Math.log10(Math.abs(floatResult));
+
+            if (!Number.isFinite(logResult)) {
+                exponentResultElement.innerHTML = "指数表記: 計算不能";
+            } else {
+                let newExponent = Math.floor(logResult);
+                let coefficient = floatResult / Math.pow(10, newExponent);
+
+                if (coefficient < 1) {
+                    coefficient *= 10;
+                    newExponent -= 1;
+                }
+
+                let sign = floatResult < 0 ? "-" : "";
+                let exponentForm = `${sign}${coefficient.toFixed(3)} × 10^${newExponent}`;
+                exponentResultElement.innerHTML = `計算結果: ${exponentForm}`;
+            }
+
+            if (Number.isInteger(base) && Number.isInteger(exponent)) {
+                let bigIntResult = BigInt(Math.round(base)) ** BigInt(exponent);
+                resultElement.innerHTML = `詳細:\n${bigIntResult.toString().padStart(20, ' ')}`;
+            } else {
+                resultElement.innerHTML = `詳細:\n${floatResult.toFixed(20)}`;
+            }
+        } catch (error) {
+            resultElement.innerHTML = "⚠ 計算エラー: 結果が大きすぎます";
+            exponentResultElement.innerHTML = "";
+        }
+    }
+
+    // エンターキーで計算を実行
+    document.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault(); // エンターでのリロードを防ぐ
+            calculatePower(); // 計算実行
+        }
+    });
+</script>
 </body>
 </html>
