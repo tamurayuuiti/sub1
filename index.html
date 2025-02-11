@@ -108,6 +108,14 @@
             }
 
             let floatResult = Math.pow(base, exponent);
+
+            // 計算結果が無限大になった場合の処理
+            if (!Number.isFinite(floatResult)) {
+                resultElement.innerHTML = "⚠ 計算結果が大きすぎます";
+                exponentResultElement.innerHTML = "";
+                return;
+            }
+
             let logResult = Math.log10(Math.abs(floatResult));
 
             if (!Number.isFinite(logResult)) {
@@ -116,22 +124,25 @@
                 let newExponent = Math.floor(logResult);
                 let coefficient = floatResult / Math.pow(10, newExponent);
 
-                // もし coefficient が 0 になってしまう場合、指数を調整
-                if (coefficient < 1) {
+                // もし coefficient が 1 未満（例: 0.5 × 10^n など）なら、指数を調整
+                if (Math.abs(coefficient) < 1) {
                     coefficient *= 10;
                     newExponent -= 1;
                 }
 
+                // 係数の精度を調整
+                coefficient = parseFloat(coefficient.toPrecision(3));
+
                 let sign = floatResult < 0 ? "-" : "";
-                let exponentForm = `${sign}${coefficient.toFixed(3)} × 10^${newExponent}`;
+                let exponentForm = `${sign}${coefficient} × 10^${newExponent}`;
                 exponentResultElement.innerHTML = `計算結果: ${exponentForm}`;
             }
 
             if (Number.isInteger(base) && Number.isInteger(exponent)) {
                 let bigIntResult = BigInt(Math.round(base)) ** BigInt(exponent);
-                resultElement.innerHTML = `詳細:\n${bigIntResult.toString().padStart(20, ' ')}`;
+                resultElement.innerHTML = `詳細:\n${bigIntResult.toString()}`;
             } else {
-                resultElement.innerHTML = `詳細:\n${floatResult.toFixed(20)}`;
+                resultElement.innerHTML = `詳細:\n${floatResult.toExponential(20)}`;
             }
         } catch (error) {
             resultElement.innerHTML = "⚠ 計算エラー: 結果が大きすぎます";
