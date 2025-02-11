@@ -80,8 +80,8 @@
         <p class="result" id="result"></p>
         <p class="limits">※ 計算可能範囲: 底 -1e308 ～ 1e308, 指数 0 ～ 100000</p>
     </div>
-
-    <script>
+    
+<script>
     function calculatePower() {
         let base = parseFloat(document.getElementById("base").value);
         let exponent = parseFloat(document.getElementById("exponent").value);
@@ -108,7 +108,7 @@
             }
 
             let floatResult = Math.pow(base, exponent);
-            let logResult = Math.log10(Math.abs(base)) * exponent;
+            let logResult = Math.log10(Math.abs(base)) * exponent; // 修正: `floatResult` ではなく `base` を使用
 
             if (!Number.isFinite(logResult)) {
                 exponentResultElement.innerHTML = "指数表記: 計算不能";
