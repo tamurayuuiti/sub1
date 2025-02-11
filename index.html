@@ -126,7 +126,7 @@
                 coefficient = parseFloat(coefficient.toPrecision(3));
 
                 let sign = floatResult < 0 ? "-" : "";
-                let exponentForm = `${sign}${coefficient} × 10^${newExponent}`;
+                let exponentForm = `${coefficient} × 10^${Math.floor(logResult)}`;
                 exponentResultElement.innerHTML = `計算結果: ${exponentForm}`;
             }
 
