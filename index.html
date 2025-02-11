@@ -108,14 +108,6 @@
             }
 
             let floatResult = Math.pow(base, exponent);
-
-            // 計算結果が無限大になった場合の処理
-            if (!Number.isFinite(floatResult)) {
-                resultElement.innerHTML = "⚠ 計算結果が大きすぎます";
-                exponentResultElement.innerHTML = "";
-                return;
-            }
-
             let logResult = Math.log10(Math.abs(floatResult));
 
             if (!Number.isFinite(logResult)) {
