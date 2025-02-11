@@ -114,7 +114,7 @@
                 exponentResultElement.innerHTML = "指数表記: 計算不能";
             } else {
                 let newExponent = Math.floor(logResult);
-                let coefficient = floatResult / Math.pow(10, newExponent);
+                let coefficient = Math.pow(10, logResult % 1).toFixed(2);
 
                 // もし coefficient が 1 未満（例: 0.5 × 10^n など）なら、指数を調整
                 if (Math.abs(coefficient) < 1) {
