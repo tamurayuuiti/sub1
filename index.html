@@ -79,8 +79,7 @@
         <p class="exponent-result" id="exponentResult"></p>
         <p class="result" id="result"></p>
         <p class="limits">※ 計算可能範囲: 底 -1e308 ～ 1e308, 指数 0 ～ 100000</p>
-    </div>
-    
+    </div>   
 <script>
     function calculatePower() {
         let base = parseFloat(document.getElementById("base").value);
@@ -108,7 +107,7 @@
             }
 
             let floatResult = Math.pow(base, exponent);
-            let logResult = Math.log10(Math.abs(base)) * exponent; // 過去の計算方法に戻す
+            let logResult = Math.log10(Math.abs(base)) * exponent; // NaN不具合修正済み
 
             if (!Number.isFinite(logResult)) {
                 exponentResultElement.innerHTML = "指数表記: 計算不能";
@@ -116,14 +115,13 @@
             }
 
             let newExponent = Math.floor(logResult);
+            let coefficient = Math.pow(10, logResult % 1).toPrecision(3);
 
-            // `newExponent` が `NaN` の場合の処理
-            if (!Number.isFinite(newExponent)) {
-                exponentResultElement.innerHTML = "指数表記: 計算不能";
-                return;
+            // 🔹 もし coefficient の最初の桁が 0 なら指数を1つ下げて補正
+            if (coefficient < 1) {
+                coefficient *= 10;
+                newExponent -= 1;
             }
-
-            let coefficient = Math.pow(10, logResult % 1).toPrecision(3); // 過去の方法に戻す
 
             let sign = floatResult < 0 ? "-" : "";
             let exponentForm = `${sign}${coefficient} × 10^${newExponent}`;
@@ -149,6 +147,5 @@
         }
     });
 </script>
-
 </body>
 </html>
