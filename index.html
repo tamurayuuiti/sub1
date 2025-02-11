@@ -108,7 +108,14 @@
             }
 
             let floatResult = Math.pow(base, exponent);
-            let logResult = Math.log10(Math.abs(floatResult));
+            let logResult;
+
+            // `floatResult` が `Infinity` の場合は `logResult` を手動計算
+            if (!Number.isFinite(floatResult)) {
+                logResult = exponent * Math.log10(Math.abs(base));
+            } else {
+                logResult = Math.log10(Math.abs(floatResult));
+            }
 
             if (!Number.isFinite(logResult)) {
                 exponentResultElement.innerHTML = "指数表記: 計算不能";
