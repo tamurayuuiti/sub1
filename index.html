@@ -115,7 +115,7 @@
             }
 
             let newExponent = Math.floor(logResult);
-            let coefficient = Math.pow(10, logResult % 1).toPrecision(4);
+            let coefficient = Math.pow(10, logResult % 1).toPrecision(5);
 
             // 🔹 もし coefficient の最初の桁が 0 なら指数を1つ下げて補正
             if (coefficient < 1) {
