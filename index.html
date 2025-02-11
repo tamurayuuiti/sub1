@@ -123,6 +123,8 @@
                 newExponent -= 1;
             }
 
+            let coefficient = Math.pow(10, logResult % 1).toPrecision(3);
+
             let sign = floatResult < 0 ? "-" : "";
             let exponentForm = `${sign}${coefficient} × 10^${newExponent}`;
             exponentResultElement.innerHTML = `計算結果: ${exponentForm}`;
