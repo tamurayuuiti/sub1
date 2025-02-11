@@ -122,6 +122,7 @@
                 coefficient *= 10;
                 newExponent -= 1;
             }
+            
             let sign = floatResult < 0 ? "-" : "";
             let exponentForm = `${sign}${coefficient} × 10^${newExponent}`;
             exponentResultElement.innerHTML = `計算結果: ${exponentForm}`;
