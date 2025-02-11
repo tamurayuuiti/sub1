@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>べき乗計算機</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            text-align: center;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 90%;
+            width: 400px;
+        }
+        input {
+            width: 150px;
+            padding: 10px;
+            font-size: 18px;
+            margin: 5px;
+            text-align: center;
+            border: 2px solid #4facfe;
+            border-radius: 5px;
+        }
+        button {
+            background: #00c6ff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #0072ff;
+        }
+        .result, .exponent-result {
+            font-size: 18px;
+            margin-top: 10px;
+            color: #333;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            max-width: 100%;
+            text-align: left;
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+        .limits {
+            font-size: 14px;
+            margin-top: 10px;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>べき乗計算機</h2>
+        <p>数値と指数を入力してください</p>
+        <input type="number" id="base" placeholder="底 (Base)" step="any">
+        <sup><input type="number" id="exponent" placeholder="指数 (Exponent)" step="any"></sup>
+        <br>
+        <button onclick="calculatePower()">計算</button>
+        <p class="exponent-result" id="exponentResult"></p>
+        <p class="result" id="result"></p>
+        <p class="limits">※ 計算可能範囲: 底 -1e308 ～ 1e308, 指数 0 ～ 100000</p>
+    </div>
+
+    <script>
+        function calculatePower() {
+            let base = parseFloat(document.getElementById("base").value);
+            let exponent = parseFloat(document.getElementById("exponent").value);
+            let resultElement = document.getElementById("result");
+            let exponentResultElement = document.getElementById("exponentResult");
+
+            if (isNaN(base) || isNaN(exponent)) {
+                resultElement.innerHTML = "⚠ 数字を入力してください";
+                exponentResultElement.innerHTML = "";
+                return;
+            }
+
+            if (base < -1e308 || base > 1e308 || exponent < 0 || exponent > 100000) {
+                resultElement.innerHTML = "⚠ 許容範囲を超えています (底は-1e308以上, 指数は0以上)";
+                exponentResultElement.innerHTML = "";
+                return;
+            }
+
+            try {
+                if (base < 0 && !Number.isInteger(exponent)) {
+                    resultElement.innerHTML = "⚠ 負の底に対して小数の指数は計算できません";
+                    exponentResultElement.innerHTML = "";
+                    return;
+                }
+
+                let floatResult = Math.pow(base, exponent);
+                let logResult = Math.log10(Math.abs(base)) * exponent;
+
+                if (!Number.isFinite(logResult)) {
+                    exponentResultElement.innerHTML = "指数表記: 計算不能";
+                } else {
+                    let coefficient = Math.pow(10, logResult % 1).toFixed(3);
+                    let sign = floatResult < 0 ? "-" : "";
+                    let exponentForm = `${sign}${coefficient} × 10^${Math.floor(logResult)}`;
+                    exponentResultElement.innerHTML = `計算結果: ${exponentForm}`;
+                }
+
+                if (Number.isInteger(base) && Number.isInteger(exponent)) {
+                    let bigIntResult = BigInt(Math.round(base)) ** BigInt(exponent);
+                    resultElement.innerHTML = `詳細:\n${bigIntResult.toString().padStart(20, ' ')}`;
+                } else {
+                    resultElement.innerHTML = `詳細:\n${floatResult.toFixed(20)}`;
+                }
+            } catch (error) {
+                resultElement.innerHTML = "⚠ 計算エラー: 結果が大きすぎます";
+                exponentResultElement.innerHTML = "";
+            }
+        }
+    </script>
+</body>
+</html>
