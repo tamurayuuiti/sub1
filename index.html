@@ -110,7 +110,7 @@
             let logResult = Math.log10(Math.abs(base)) * exponent; // NaN不具合修正済み
 
             if (!Number.isFinite(logResult)) {
-                exponentResultElement.innerHTML = "指数表記: 計算不能";
+                exponentResultElement.innerHTML = "計算結果: Infinity";
                 return;
             }
 
