@@ -93,8 +93,9 @@
             return;
         }
 
-        if (base < -1e308 || base > 1e308 || exponent < 0 || exponent > 100000) {
-            resultElement.innerHTML = "⚠ 許容範囲を超えています (底は-1e308以上, 指数は0以上)";
+        // 🔹 指数の範囲を -100000 〜 100000 に拡張
+        if (base < -1e308 || base > 1e308 || exponent < -100000 || exponent > 100000) {
+            resultElement.innerHTML = "⚠ 許容範囲を超えています (底は-1e308以上, 指数は-100000以上)";
             exponentResultElement.innerHTML = "";
             return;
         }
@@ -122,17 +123,19 @@
                 coefficient *= 10;
                 newExponent -= 1;
             }
-            
+
             let sign = floatResult < 0 ? "-" : "";
             let exponentForm = `${sign}${coefficient} × 10^${newExponent}`;
             exponentResultElement.innerHTML = `計算結果: ${exponentForm}`;
 
-            if (Number.isInteger(base) && Number.isInteger(exponent)) {
+            // 🔹 BigInt の処理は整数の指数のときのみ実行
+            if (Number.isInteger(base) && Number.isInteger(exponent) && exponent >= 0) {
                 let bigIntResult = BigInt(Math.round(base)) ** BigInt(exponent);
                 resultElement.innerHTML = `詳細:\n${bigIntResult.toString()}`;
             } else {
                 resultElement.innerHTML = `詳細:\n${floatResult.toExponential(20)}`;
             }
+
         } catch (error) {
             resultElement.innerHTML = "⚠ 計算エラー: 結果が大きすぎます";
             exponentResultElement.innerHTML = "";
