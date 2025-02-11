@@ -1,61 +1,77 @@
+/* 全体のスタイルを統一 */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     background: linear-gradient(to right, #4facfe, #00f2fe);
-    text-align: center;
-    padding: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    height: 100vh;
     margin: 0;
-    flex-direction: column;
 }
+
+/* メインのコンテナ */
 .container {
     background: white;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 90%;
-    width: 400px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
 }
+
+/* 入力フィールドのスタイル */
 input {
-    width: 150px;
+    width: 100px;
     padding: 10px;
     font-size: 18px;
-    margin: 5px;
     text-align: center;
     border: 2px solid #4facfe;
-    border-radius: 5px;
+    border-radius: 8px;
+    outline: none;
+    transition: 0.3s;
 }
+
+/* 入力フィールドのフォーカス時 */
+input:focus {
+    border-color: #00c6ff;
+    box-shadow: 0 0 8px rgba(0, 198, 255, 0.5);
+}
+
+/* ボタンのデザイン */
 button {
     background: #00c6ff;
     color: white;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
+    padding: 12px 24px;
     font-size: 18px;
-    border-radius: 5px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
     margin-top: 10px;
 }
+
+/* ボタンのホバー時 */
 button:hover {
     background: #0072ff;
+    transform: scale(1.05);
 }
+
+/* 結果表示のスタイル */
 .result, .exponent-result {
     font-size: 18px;
-    margin-top: 10px;
     color: #333;
     word-wrap: break-word;
-    overflow-wrap: break-word;
     max-width: 100%;
     text-align: left;
-    white-space: pre-wrap;
     font-family: monospace;
+    margin-top: 10px;
 }
+
+/* 許容範囲の警告 */
 .limits {
     font-size: 14px;
-    margin-top: 10px;
     color: red;
+    margin-top: 10px;
+    font-weight: bold;
 }
