@@ -34,13 +34,13 @@ function calculatePower() {
         let newExponent = Math.floor(logResult);
         let coefficient = Math.pow(10, logResult % 1).toPrecision(5);
 
-        // 🔹 もし coefficient の最初の桁が 0 なら指数を1つ下げて補正
+        //  もし coefficient の最初の桁が 0 なら指数を1つ下げて補正
         if (coefficient < 1) {
             coefficient *= 10;
             newExponent -= 1;
         }
 
-        // 🔹 **指数が負 (`exponent < 0`) のとき、指数を +1 補正**
+        //  もし 指数が負 (`exponent < 0`) なら指数を1つ上げて補正
         if (exponent < 0) {
             newExponent += 1;
         }
