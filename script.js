@@ -24,7 +24,7 @@ function calculatePower() {
         }
 
         let floatResult = Math.pow(base, exponent);
-        let logResult = Math.log10(Math.abs(base)) * exponent; // NaN不具合修正済み
+        let logResult = Math.log10(Math.abs(base)) * exponent;
 
         if (!Number.isFinite(logResult)) {
             exponentResultElement.innerHTML = "計算結果: Infinity";
@@ -40,8 +40,8 @@ function calculatePower() {
             newExponent -= 1;
         }
 
-        //  もし 指数が負 (`exponent < 0`) なら指数を1つ上げて補正
-        if (exponent < 0) {
+        //  もし計算結果の指数が -1 以下なら指数を1つ上げて補正
+        if (newExponent <= -1) {
             newExponent += 1;
         }
 
@@ -65,7 +65,7 @@ function calculatePower() {
 // エンターキーで計算を実行
 document.addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
-        event.preventDefault(); // エンターでのリロードを防ぐ
-        calculatePower(); // 計算実行
+        event.preventDefault();
+        calculatePower();
     }
 });
