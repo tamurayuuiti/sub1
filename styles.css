@@ -11,6 +11,10 @@ body {
     flex-direction: column;
 }
 .container {
+    position: fixed;  /* 画面に固定 */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* 中央揃え */
     background: white;
     padding: 20px;
     border-radius: 10px;
