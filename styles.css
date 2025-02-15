@@ -9,7 +9,6 @@ body {
     min-height: 100vh;
     margin: 0;
     flex-direction: column;
-    overflow: hidden; /* 初期状態でスクロールを防止 */
 }
 .container {
     background: white;
