@@ -1,7 +1,3 @@
-function enableScroll() {
-    document.body.style.overflow = 'auto';
-}
-
 function calculatePower() {
     let base = parseFloat(document.getElementById("base").value);
     let exponent = parseFloat(document.getElementById("exponent").value);
@@ -60,7 +56,6 @@ function calculatePower() {
             resultElement.innerHTML = `詳細:\n${floatResult.toExponential(20)}`;
         }
         
-        enableScroll();
     } catch (error) {
         resultElement.innerHTML = "⚠ 計算エラー: 結果が大きすぎます";
         exponentResultElement.innerHTML = "";
