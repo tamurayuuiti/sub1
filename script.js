@@ -57,7 +57,7 @@ function calculatePower() {
         }
         
     } catch (error) {
-        resultElement.innerHTML = "⚠ 計算エラー: 結果が大きすぎます";
+        resultElement.innerHTML = "⚠ 計算エラー: Infinity";
         exponentResultElement.innerHTML = "";
     }
 }
