@@ -27,7 +27,7 @@ function calculatePower() {
         let logResult = Math.log10(Math.abs(base)) * exponent;
 
         if (!Number.isFinite(logResult)) {
-            exponentResultElement.innerHTML = "計算結果: Infinity";
+            exponentResultElement.innerHTML = "計算結果: INFINITY";
             return;
         }
 
@@ -57,7 +57,7 @@ function calculatePower() {
         }
         
     } catch (error) {
-        resultElement.innerHTML = "⚠ 計算エラー: Infinity";
+        resultElement.innerHTML = "⚠ 計算エラー: INFINITY";
         exponentResultElement.innerHTML = "";
     }
 }
