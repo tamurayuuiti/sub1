@@ -10,6 +10,7 @@ body {
     margin: 0;
     flex-direction: column;
 }
+
 .container {
     background: white;
     padding: 20px;
@@ -21,7 +22,8 @@ body {
     max-width: 90%;
     width: 400px;
 }
-input {
+
+input, .exponent {
     width: 70%;
     padding: 10px;
     font-size: 18px;
@@ -30,6 +32,7 @@ input {
     border: 2px solid #4facfe;
     border-radius: 5px;
 }
+
 button {
     background: #00c6ff;
     color: white;
@@ -40,9 +43,11 @@ button {
     border-radius: 5px;
     margin-top: 10px;
 }
+
 button:hover {
     background: #0072ff;
 }
+
 .result, .exponent-result {
     font-size: 18px;
     margin-top: 10px;
@@ -54,6 +59,7 @@ button:hover {
     white-space: pre-wrap;
     font-family: monospace;
 }
+
 .limits {
     font-size: 14px;
     margin-top: 10px;
