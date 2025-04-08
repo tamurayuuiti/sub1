@@ -33,16 +33,10 @@ input {
     border-radius: 5px;
 }
 
-.input-pair {
-    display: flex;
-    align-items: flex-start;
-    gap: 5px;
+sup input {
+    font-size: inherit;
+    vertical-align: baseline;
 }
-
-input.exponent {
-    vertical-align: top;
-}
-
 
 button {
     background: #00c6ff;
