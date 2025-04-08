@@ -33,6 +33,17 @@ input {
     border-radius: 5px;
 }
 
+.input-pair {
+    display: flex;
+    align-items: flex-start;
+    gap: 5px;
+}
+
+input.exponent {
+    vertical-align: top;
+}
+
+
 button {
     background: #00c6ff;
     color: white;
