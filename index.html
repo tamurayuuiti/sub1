@@ -10,8 +10,11 @@
     <div class="container">
         <h2>累乗・冪乗計算機</h2>
         <p>数値と指数を入力してください</p>
-        <input type="number" id="base" placeholder="底 (Base)" step="any">
-        <sup><input type="number" id="exponent" placeholder="指数 (Exponent)" step="any"></sup>
+        <!-- 元の sup タグを削除し、同列で表示 -->
+        <div class="input-pair">
+            <input type="number" id="base" placeholder="底 (Base)" step="any">
+            <input type="number" id="exponent" placeholder="指数 (Exponent)" step="any" class="exponent">
+        </div>
         <br>
         <button onclick="calculatePower()">計算</button>
         <p class="exponent-result" id="exponentResult"></p>
