@@ -34,15 +34,8 @@ input {
 }
 
 sup input {
-    all: unset;
-    all: initial;
-    width: 150px;
-    padding: 10px;
     font-size: 18px;
-    margin: 5px;
-    text-align: center;
-    border: 2px solid #4facfe;
-    border-radius: 5px;
+    vertical-align: baseline;
 }
 
 button {
