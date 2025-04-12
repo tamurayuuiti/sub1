@@ -49,8 +49,7 @@ button {
     cursor: pointer;
     font-size: 18px;
     border-radius: 5px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 8px;
     box-sizing: border-box;
     transition: background 0.275s ease;
     position: relative;
@@ -65,7 +64,7 @@ button:hover {
 .exponent-result {
     display: none;
     font-size: 18px;
-    margin-top: 13px;
+    margin-top: 25px;
     color: #333;
     word-wrap: break-word;
     overflow-wrap: break-word;
@@ -79,7 +78,7 @@ button:hover {
     display: none;
     font-size: 18px;
     margin-top: 5px;
-    margin-bottom: 7px;
+    margin-bottom: 1px;
     color: #333;
     word-wrap: break-word;
     overflow-wrap: break-word;
