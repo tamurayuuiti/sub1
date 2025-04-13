@@ -69,7 +69,7 @@ button:hover {
     word-wrap: break-word;
     overflow-wrap: break-word;
     max-width: 100%;
-    text-align: left;
+    text-align: centar;
     white-space: pre-wrap;
     font-family: monospace;
 }
@@ -83,7 +83,6 @@ button:hover {
     word-wrap: break-word;
     overflow-wrap: break-word;
     max-width: 100%;
-    text-align: left;
     white-space: pre-wrap;
     font-family: monospace;
 }
