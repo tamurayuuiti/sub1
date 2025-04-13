@@ -89,11 +89,9 @@ button:hover {
 }
 
 .error-message {
-    font-size: 20px;
+    font-size: 18px;
     margin-top: 20px;
-    font-style: bold;
     display: none;
-    text-align: center;
 }
 
 .limits {
