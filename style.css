@@ -88,6 +88,14 @@ button:hover {
     font-family: monospace;
 }
 
+.error-message {
+    font-size: 20px;
+    margin-top: 20px;
+    font-style: bold;
+    display: none;
+    text-align: center;
+}
+
 .limits {
     color: red;
     font-size: 18px;
