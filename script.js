@@ -57,7 +57,7 @@ function handleComplex(base, exponent, elements) {
         let im = complexResult.im.toExponential(5);
         let sign = complexResult.im >= 0 ? '+' : '-';
         let formatted = `${re} ${sign} ${Math.abs(complexResult.im).toExponential(5)}i`;
-        showElement(elements.exponentResult, `計算結果: ${formatted}`);
+        showElement(elements.exponentResult, `計算結果:\n${formatted}`);
     }
     hideElement(elements.result);
 }
@@ -76,7 +76,7 @@ function handleDecimal(baseInput, exponentInput, elements) {
     let parts = decimalResult.toExponential(20).split('e');
     let mantissa = parts[0].replace(/(\d*\.\d*?[1-9])0+$/, '$1');
     let exponentialForm = `${mantissa}e${parts[1]}`;
-    showElement(elements.exponentResult, `計算結果: ${exponentialForm}`);
+    showElement(elements.exponentResult, `計算結果:\n${exponentialForm}`);
 
     let digitCount = Decimal.log10(decimalResult.abs()).floor().plus(1).toString();
     showElement(elements.result, `桁数: 約 ${digitCount} 桁`);
