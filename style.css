@@ -64,12 +64,11 @@ button:hover {
 .exponent-result {
     display: none;
     font-size: 18px;
-    margin-top: 25px;
+    margin-top: 20px;
     color: #333;
     word-wrap: break-word;
     overflow-wrap: break-word;
-    max-width: 100%;
-    text-align: centar;
+    text-align: left;
     white-space: pre-wrap;
     font-family: monospace;
 }
@@ -77,12 +76,12 @@ button:hover {
 .result {
     display: none;
     font-size: 18px;
-    margin-top: 5px;
-    margin-bottom: 1px;
+    margin-top: 21px;
     color: #333;
     word-wrap: break-word;
     overflow-wrap: break-word;
     max-width: 100%;
+    margin-bottom: auto;
     white-space: pre-wrap;
     font-family: monospace;
 }
@@ -94,6 +93,8 @@ button:hover {
 }
 
 .limits {
+    font-size: 16px;
+    margin-top: 15px;
     color: red;
-    font-size: 18px;
 }
+
